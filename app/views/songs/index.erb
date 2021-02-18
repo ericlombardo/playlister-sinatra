@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+  <head>
+ 
+  </head>
+  <body>
+    <% @songs.each do |s| %>
+      <a href="/songs/<%=s.slug%>"><%= s.name %></a><br>
+    <% end %>
+  </body>
+</html>

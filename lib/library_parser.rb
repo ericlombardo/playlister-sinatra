@@ -12,7 +12,7 @@ class LibraryParser
     artist_match = filename.match(/^(.*) -/)
     song_match   = filename.match(/- (.*) \[/)
     genre_match  = filename.match(/\[([^\]]*)\]/)
-
+    
     artist = artist_match && artist_match[1]
     song   = song_match   && song_match[1]
     genre  = genre_match  && genre_match[1]
@@ -28,9 +28,9 @@ class LibraryParser
   end
 
   def build_objects(artist_name, song_name, genre_name)
-    song = Song.create(name: song_name)
-    genre = Genre.find_or_create_by(name: genre_name)
-    artist = Artist.find_or_create_by(name: artist_name)
+    song = Song.create(name: song_name.downcase)
+    genre = Genre.find_or_create_by(name: genre_name.downcase)
+    artist = Artist.find_or_create_by(name: artist_name.downcase)
 
     song.song_genres.build(genre: genre)
     song.artist = artist
