@@ -3,12 +3,13 @@ class Song < ActiveRecord::Base
   has_many :song_genres
   has_many :genres, through: :song_genres
 
-  def slug  # takes name, replaces ' ' with '-' 
-    self.name.split(" ").join('-')
+  def slug  # takes name, replaces ' ' with '-', sets with downcase 
+    self.name.split(" ").join('-').downcase
   end
 
-  def self.find_by_slug(slug) # converts slug to original, finds instance
-    song_name = slug.split("-").join(' ')
-    Song.find_by(name: song_name)
+  def self.find_by_slug(slug) # compares Song instances as slug with params slug
+    Song.all.find do |s|
+      s.slug == slug
+    end
   end
 end
